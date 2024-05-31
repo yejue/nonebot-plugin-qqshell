@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>xterm.js Example</title>
+<!-- 引入 xterm.js 库 -->
+<link rel="stylesheet" href="https://unpkg.com/xterm/css/xterm.css">
+<script src="https://unpkg.com/xterm/lib/xterm.js"></script>
+<script src="https://unpkg.com/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+<style>
+    /* xterm 终端样式 */
+    #terminal {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: transparent; /* 设置终端背景色为透明 */
+        background-image: url("{{ background_url }}");
+        background-repeat: no-repeat;
+        background-position: right bottom; /* 调整图片位置 */
+    }
+
+</style>
+</head>
+<body>
+
+<!-- xterm 终端 -->
+<div id="terminal"></div>
+
+<script>
+
+// xterm 主题：白色背景黑色前景六花
+const theme_white_black_rikka = {
+    background: "rgba(253,253,254,0.8)",
+    foreground: "#0B1013",
+}
+
+const theme_black_white_rikka = {
+    background: "rgba(11,16,19,0.8)",
+    foreground: "rgba(253,253,254)",
+}
+
+const choose_theme = "{{ theme }}"
+const getTheme = ()=> {
+    let themeDict = {
+        "{{ theme }}": theme_black_white_rikka,
+        "theme_white_black_rikka": theme_white_black_rikka,
+        "theme_black_white_rikka": theme_black_white_rikka,
+    };
+    return themeDict[choose_theme]
+}
+
+
+// 创建 xterm 终端实例
+const term = new Terminal({
+    theme: getTheme(),
+    cursorBlink: true,  // 光标闪烁
+});
+
+// 将终端连接到容器
+term.open(document.getElementById('terminal'));
+
+// 创建 fit 插件实例
+const fitAddon = new FitAddon.FitAddon();
+term.loadAddon(fitAddon);
+
+// 适配终端大小
+fitAddon.fit();
+
+// 获取捕获的终端输出（从后端传递到前端）
+const output = "{{ pre_content }}";
+
+// 将输出写入终端
+term.write(output);
+</script>
+
+</body>
+</html>
