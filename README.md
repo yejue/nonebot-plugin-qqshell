@@ -32,7 +32,7 @@ git clone https://github.com/yejue/nonebot-plugin-qqshell.git
 ```text
 shell ls
 shell cd /awesome-bot
-shell nb run --reload
+shell reboot
 ```
 
 ## 配置
