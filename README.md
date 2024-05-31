@@ -48,6 +48,11 @@ QQSHELL_THEME = "theme_black_white_rikka"  # 主题，默认为黑色背景白�
 QQSHELL_THEME = "theme_white_black_rikka"
 ```
 
+## 排期
+ - [ ] ANSI 组合键`ESC`、`CTRL+C` 等转发
+ - [ ] 手动连接与断开 SSH 链接
+ - [ ] 主题背景可配置
+
 ## 示例
 
 <img src="img.png" width="400"></img>
