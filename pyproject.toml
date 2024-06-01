@@ -7,8 +7,29 @@ requires-python = ">=3.8, <4.0"
 
 [tool.nonebot]
 adapters = [
-    { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" }
+    { name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11" },
 ]
-plugins = []
-plugin_dirs = ["nonebot_plugin_qqshell/plugins"]
-builtin_plugins = []
+plugins = ["nonebot_plugin_qqshell"]
+[tool.poetry]
+name = "nonebot-plugin-qqshell"
+version = "0.1.0a3"
+description = "QQShell 是一个类 WebSSH、XShell 的运行在机器人的 SSH Shell，在 QQ 中自由运行你的命令吧"
+authors = ["yejue <1145331931@qq.com>"]
+readme = "README.md"
+license = "GPLv3"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+nonebot2 = "^2.2"
+nonebot_plugin_htmlrender = "^0.3.1"
+paramiko = "^3.4"
+nonebot-adapter-onebot = "^2.4.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.urls]
+homepage = "https://github.com/yejue/nonebot-plugin-qqshell.git"
+repository = "https://github.com/yejue/nonebot-plugin-qqshell.git"
