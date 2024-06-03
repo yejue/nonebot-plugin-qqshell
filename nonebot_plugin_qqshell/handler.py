@@ -3,7 +3,7 @@ from nonebot.plugin import on_command
 from nonebot.params import CommandArg
 from nonebot.adapters import Message, MessageSegment
 from nonebot.log import logger
-
+from nonebot.permission import SUPERUSER
 from nonebot_plugin_htmlrender import html_to_pic
 from nonebot.adapters.onebot.v11 import MessageSegment
 
@@ -28,7 +28,16 @@ def get_shell():
 
 
 shell = get_shell()
-qq_shell = on_command("shell", aliases={">shell", }, rule=to_me, priority=config.qqshell_priority, block=True,)
+qq_shell = on_command(
+    "shell",
+    aliases={
+        ">shell",
+    },
+    rule=to_me(),
+    permission=SUPERUSER,
+    priority=config.qqshell_priority,
+    block=True,
+)
 
 
 @qq_shell.handle()
@@ -45,6 +54,8 @@ async def shell_handler(args: Message = CommandArg()):
     res = shell.get_output()
 
     # 输出结果
-    pic = await html_to_pic(PanelService.render_text_xterm(text=res, theme=config.qqshell_theme))
+    pic = await html_to_pic(
+        PanelService.render_text_xterm(text=res, theme=config.qqshell_theme)
+    )
     message = MessageSegment.image(file=pic)
     await qq_shell.finish(message)

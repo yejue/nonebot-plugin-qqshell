@@ -1,10 +1,10 @@
 from nonebot import require
-require("nonebot_plugin_htmlrender")
 
+require("nonebot_plugin_htmlrender")
 from nonebot.plugin import PluginMetadata
 
 from .config import Config
-from .handler import shell_handler
+from . import handler
 
 __plugin_meta__ = PluginMetadata(
     name="QQShell",
@@ -13,5 +13,5 @@ __plugin_meta__ = PluginMetadata(
     config=Config,
     homepage="https://github.com/yejue/nonebot-plugin-qqshell.git",
     type="application",
-    supported_adapters={"~onebot.v11"}
+    supported_adapters={"~onebot.v11"},
 )
