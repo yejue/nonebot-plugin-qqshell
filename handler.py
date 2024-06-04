@@ -1,11 +1,12 @@
 from nonebot.rule import to_me
 from nonebot.plugin import on_command
 from nonebot.params import CommandArg
-from nonebot.adapters import Message, MessageSegment
+from nonebot.adapters import Message
+from nonebot.adapters.onebot.v11 import MessageSegment
+from nonebot.permission import SUPERUSER
 from nonebot.log import logger
 
 from nonebot_plugin_htmlrender import html_to_pic
-from nonebot.adapters.onebot.v11 import MessageSegment
 
 
 from .services import PanelService
@@ -28,7 +29,15 @@ def get_shell():
 
 
 shell = get_shell()
-qq_shell = on_command("shell", aliases={">shell", }, rule=to_me, priority=config.qqshell_priority, block=True,)
+
+qq_shell = on_command(
+    "shell",
+    aliases={">shell", },
+    rule=to_me,
+    priority=config.qqshell_priority,
+    block=True,
+    permission=SUPERUSER,
+)
 
 
 @qq_shell.handle()
