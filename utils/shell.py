@@ -36,9 +36,24 @@ class ShellSync:
         """输出面板"""
         return ""
 
+    @staticmethod
+    def parse_command(command: str):
+        """解析命令"""
+        map_dict = {
+            "#esc": "\x1b",
+            "#ctrlc": "\x03",
+            "#ctrlz": "\x1a",
+        }
+
+        for key, value in map_dict.items():
+            # 使用值替换命令中的键
+            command = command.replace(key, value)
+        return command
+
     def exec_command(self, command: str):
         """执行命令"""
-        cmd_template = f"{command}\r"
+        parsed_command = self.parse_command(command)
+        cmd_template = f"{parsed_command}\r"
         self.shell.send(cmd_template.encode())
         self.panel += cmd_template
         self.on_recv()
