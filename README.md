@@ -17,7 +17,7 @@ _✨ QQShell 是一个类 WebSSH、XShell 的运行在机器人的 SSH Shell，�
    所以这个插件虽然仅仅只想拥有查看本机的命令，仍然使用了 SSH 来建立一个完整的可交互的 Shell 工具。
    这个插件使用了 paramiko 维持一个 SSH 和 Invoke Shell，在展示部分使用了 xterm.js，可以很好得展示转义符号、颜色符号、控制符号等等
 
-3. 现在版本存在的问题：还没有把 superuser 加上；还没有把转义符号加上；预计在5号前完成，因为现在在外面旅游；
+3. <del>现在版本存在的问题：还没有把 superuser 加上；还没有把转义符号加上；预计在5号前完成，因为现在在外面旅游；</del>
 
 
 ## 快速安装
@@ -50,6 +50,20 @@ shell cd /awesome-bot
 shell reboot
 ```
 
+## 控制符转发
+
+在一个 shell 中，总会使用到 `esc`、`ctrl+c` 等，目前对这些内容做了转发，转发表如下。
+
+| 源文本    | 转发文本 |   含义  |
+|--------|--|-----|
+| #esc   | \x1b |   ESC 按钮  |
+| #ctrlc | \x03 |   CTRL+C 按钮，中断当前程序  |
+| #ctrlz | \x1a |   CTRL+Z 按钮，挂起  |
+| $save; | \x1b:wq |  魔术方法，即按了 ESC 后输入 :wq   |
+| $stop; | \x03 |  魔术方法，等同于 CTRL+C   |
+
+使用方法：在命令输入时输入表中的源文本即可
+
 ## 配置
 ```text
 QQSHELL_HOST = "localhost"      # 主机名，默认为 localhost，必填
@@ -61,13 +75,37 @@ QQSHELL_THEME = "theme_black_white_rikka"  # 主题，默认为黑色背景白�
 
 # 另一个主题：白色背景黑色字体的 RIKKA
 QQSHELL_THEME = "theme_white_black_rikka"
+
+# 本插件使用需具备超级用户权限
+SUPERUSERS = ["你的QQ号"]
+
 ```
 
+## 更新历史
+
+## 0.1.0
+此版本为在商店发布后第一个正式版，主要更新内容：
+ - ESC、CTRL+C 等转义符转发
+ - $save; 等的魔术符号
+ - 比较好用的 CMD 执行
+ - 限制使用为超级用户权限
+
 ## 排期
- - [ ] ANSI 组合键`ESC`、`CTRL+C` 等转发
+ - [x] ANSI 组合键`ESC`、`CTRL+C` 等转发
  - [ ] 手动连接与断开 SSH 链接
  - [ ] 主题背景可配置
 
 ## 示例
+### vi、esc、ctrlc 转发
 
-<img src="img.png" width="400"></img>
+<img src="resources/esc.png" width="400"></img>
+
+<img src="resources/ctrlc.png" width="400"></img>
+
+### vi 魔术方法保存
+
+<img src="resources/save_method.png" width="400"></img>
+
+### 一般情况
+
+<img src="resources/img.png" width="400"></img>
