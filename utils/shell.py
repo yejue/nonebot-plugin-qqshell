@@ -43,6 +43,8 @@ class ShellSync:
             "#esc": "\x1b",
             "#ctrlc": "\x03",
             "#ctrlz": "\x1a",
+            "$save;": "\x1b:wq",  # 魔术方法，文本编辑时保存
+            "$stop;": "\x03",  # 魔术方法，中断当前程序运行
         }
 
         for key, value in map_dict.items():
